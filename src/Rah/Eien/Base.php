@@ -83,6 +83,17 @@ abstract class Rah_Eien_Base
 
     public function __toString()
     {
+        return $this->getPath();
+    }
+
+    /**
+     * Returns a path to the temporary file.
+     *
+     * @return string
+     */
+
+    public function getPath()
+    {
         return (string) $this->temp;
     }
 
