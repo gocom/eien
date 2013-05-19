@@ -15,13 +15,8 @@ echo (string) new Rah_Eien_Temporary_File();
 ### Create a temporary file and move it to its final location once done
 
 ```php
-$tmp = new Rah_Eien_File();
-$tmp
-    ->file('/path/to/final/destination')
-    ->tmp('/tmp');
-
 $file = new Rah_Eien_Temporary_File($tmp);
-$file->move();
+$file->move('/path/to/final/location');
 ```
 
 ### Make a temporary file from an existing file
