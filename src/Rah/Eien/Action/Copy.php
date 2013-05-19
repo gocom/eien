@@ -43,7 +43,7 @@ class Rah_Eien_Action_Copy
 
     public function __construct($source, $target)
     {
-        if ($in = fopen($source, 'rb') && $out = fopen($target, 'wb'))
+        if (($in = fopen($source, 'rb')) && ($out = fopen($target, 'wb')))
         {
             flock($in, LOCK_EX);
             flock($out, LOCK_EX);

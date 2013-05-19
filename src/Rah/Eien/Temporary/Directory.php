@@ -31,12 +31,11 @@
 class Rah_Eien_Temporary_Directory extends Rah_Eien_Base
 {
     /**
-     * Constructor.
+     * Initializes.
      */
 
-    public function __construct()
+    protected function init()
     {
-        parent::__construct();
         $this->tmpDirectory();
     }
 }

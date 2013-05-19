@@ -64,6 +64,15 @@ abstract class Rah_Eien_Base
         }
 
         $this->findTmpDirectory();
+        $this->init();
+    }
+
+    /**
+     * Initializes.
+     */
+
+    protected function init()
+    {
     }
 
     /**
@@ -210,23 +219,24 @@ abstract class Rah_Eien_Base
      * due to permissions, it tries copying and
      * after which is removes the left over file.
      *
+     * @param  string        $target
      * @return Rah_Eien_Base
      * @throws Exception
      */
 
-    public function move()
+    public function move($target)
     {
-        if (!$this->temp || $this->config->file === null)
+        if (!$this->temp || !$target)
         {
             throw new Exception('No file to move specified.');
         }
 
-        if (@rename($this->temp, $this->config->file))
+        if (@rename($this->temp, $target))
         {
             return $this;
         }
 
-        if (@copy($this->temp, $this->config->file) && unlink($this->temp))
+        if (@copy($this->temp, $target) && unlink($this->temp))
         {
             return $this;
         }

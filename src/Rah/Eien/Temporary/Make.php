@@ -31,13 +31,11 @@
 class Rah_Eien_Temporary_Make extends Rah_Eien_Base
 {
     /**
-     * Constructor.
+     * Initializes.
      */
 
-    public function __construct()
+    protected function init()
     {
-        parent::__construct();
-
         if ($this->config->file)
         {
             $this->fromFile();
