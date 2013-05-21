@@ -50,7 +50,7 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
      * {@inheritdoc}
      */
 
-    public function __construct(Rah_Eien_Config $config = null)
+    public function __construct(Rah_Eien_Config_Values $config = null)
     {
         if ($config === null)
         {

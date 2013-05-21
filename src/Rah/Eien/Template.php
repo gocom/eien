@@ -35,10 +35,10 @@ interface Rah_Eien_Template
     /**
      * Constructor.
      *
-     * @param Rah_Eien_Config $config
+     * @param Rah_Eien_Config_Values $config
      */
 
-    public function __construct(Rah_Eien_Config $config = null);
+    public function __construct(Rah_Eien_Config_Values $config = null);
 
     /**
      * Destructor.
