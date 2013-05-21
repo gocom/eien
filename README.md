@@ -14,7 +14,7 @@ echo (string) new Rah_Eien_Temporary_File();
 
 ### Create a temporary file and move it to its final location once done
 
-The file is moved to location specified with the optional @Rah_Eien_File::$final@ option, if defined. The moving is performed once there are no other references to the instance, script is closed or when the @move()@ method is called.
+The file is moved to location specified with the optional Rah_Eien_File::$final option, if defined. The moving is performed once there are no other references to the instance, script is closed or when the move() method is called.
 
 ```php
 $tmp = new Rah_Eien_File();
