@@ -68,4 +68,12 @@ abstract class Rah_Eien_Config
      */
 
     public $prefix = 'Rah_Eien_';
+
+    /**
+     * Keep the created temporary file even after loosing the reference to the instance.
+     *
+     * @var bool
+     */
+
+    public $keep = false;
 }

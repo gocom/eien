@@ -81,7 +81,10 @@ abstract class Rah_Eien_Base
 
     public function __destruct()
     {
-        $this->clean();
+        if ($this->config->keep === false)
+        {
+            $this->clean();
+        }
     }
 
     /**
