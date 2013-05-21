@@ -252,11 +252,13 @@ abstract class Rah_Eien_Base
 
         if (@rename($this->temp, $this->config->final))
         {
+            $this->trash();
             return $this;
         }
 
-        if (@copy($this->temp, $this->config->final) && unlink($this->temp))
+        if (@copy($this->temp, $this->config->final))
         {
+            $this->trash();
             return $this;
         }
 
