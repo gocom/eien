@@ -228,7 +228,7 @@ abstract class Rah_Eien_Base
 
     public function move()
     {
-        if (!$this->temp || $this->config->final === null)
+        if ($this->temp === null || $this->config->final === null)
         {
             throw new Exception('No file to move specified.');
         }
