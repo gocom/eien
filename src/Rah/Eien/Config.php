@@ -46,6 +46,17 @@ abstract class Rah_Eien_Config
     public $file;
 
     /**
+     * Path to the final target location for the temporary file.
+     *
+     * The temporary file is moved to this location
+     * once you are done with it.
+     *
+     * @var string
+     */
+
+    public $final;
+
+    /**
      * Path to the temporary directory.
      *
      * @var string

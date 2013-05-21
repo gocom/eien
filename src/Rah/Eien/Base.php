@@ -216,30 +216,34 @@ abstract class Rah_Eien_Base
     }
 
     /**
-     * Moves a temporary file to the final location.
+     * Moves a temporary file to its final location.
      *
      * This method first tries renaming. If that fails
      * due to permissions, it tries copying and
      * after which is removes the left over file.
      *
-     * @param  string        $target
      * @return Rah_Eien_Base
      * @throws Exception
      */
 
-    public function move($target)
+    public function move()
     {
-        if (!$this->temp || !$target)
+        if (!$this->temp || !$this->config->final)
         {
             throw new Exception('No file to move specified.');
         }
 
-        if (@rename($this->temp, $target))
+        if (is_writeable($this->config->final) === false)
+        {
+            throw new Exception('Unable to write to: '.$this->config->final);
+        }
+
+        if (@rename($this->temp, $this->config->final))
         {
             return $this;
         }
 
-        if (@copy($this->temp, $target) && unlink($this->temp))
+        if (@copy($this->temp, $this->config->finale) && unlink($this->temp))
         {
             return $this;
         }
