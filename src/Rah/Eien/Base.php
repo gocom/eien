@@ -81,9 +81,14 @@ abstract class Rah_Eien_Base
 
     public function __destruct()
     {
-        if ($this->config->keep === false)
+        if ($this->temp !== null && $this->config->keep === false)
         {
             $this->clean();
+
+            if ($this->config->final !== null)
+            {
+                $this->move();
+            }
         }
     }
 
@@ -197,7 +202,7 @@ abstract class Rah_Eien_Base
 
     protected function clean()
     {
-        if (file_exists($this->temp))
+        if ($this->temp !== null && file_exists($this->temp))
         {
             if (unlink($this->temp) === false)
             {
@@ -207,12 +212,19 @@ abstract class Rah_Eien_Base
     }
 
     /**
-     * Trashes the temporary file.
+     * Trashes the temporary file, and closes the temporary file instance.
+     *
+     * If you need to get rid of the temporary file instance and discard
+     * the file, call this method.
+     *
+     * @return bool
      */
 
     public function trash()
     {
         $this->clean();
+        $this->temp = null;
+        return true;
     }
 
     /**
