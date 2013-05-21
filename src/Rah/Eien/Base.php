@@ -28,7 +28,7 @@
  * The base class.
  */
 
-abstract class Rah_Eien_Base
+abstract class Rah_Eien_Base implements Rah_Eien_Template
 {
     /**
      * The temporary filename.
@@ -47,12 +47,10 @@ abstract class Rah_Eien_Base
     protected $config;
 
     /**
-     * Constructor.
-     *
-     * @param Rah_Eien_Config $config
+     * {@inheritdoc}
      */
 
-    public function __construct($config = null)
+    public function __construct(Rah_Eien_Config $config = null)
     {
         if ($config === null)
         {
@@ -68,15 +66,7 @@ abstract class Rah_Eien_Base
     }
 
     /**
-     * Initializes.
-     */
-
-    protected function init()
-    {
-    }
-
-    /**
-     * Destructor.
+     * {@inheritdoc}
      */
 
     public function __destruct()
@@ -90,9 +80,7 @@ abstract class Rah_Eien_Base
     }
 
     /**
-     * Returns a path to the temporary file.
-     *
-     * @return string
+     * {@inheritdoc}
      */
 
     public function __toString()
@@ -101,9 +89,7 @@ abstract class Rah_Eien_Base
     }
 
     /**
-     * Returns a path to the temporary file.
-     *
-     * @return string
+     * {@inheritdoc}
      */
 
     public function getPath()
@@ -112,17 +98,7 @@ abstract class Rah_Eien_Base
     }
 
     /**
-     * Finds the default temporary directory.
-     *
-     * This method tries to find the default
-     * temporary directory by looking at
-     * PHP's configuration values and for system's
-     * default temporary directory.
-     *
-     * You should configure this tmp location yourself,
-     * and not blindly trust some value returned
-     * by the method. It might be a writeable directory,
-     * but not necessarily one where you should be writing.
+     * {@inheritdoc}
      */
 
     public function findTmpDirectory()
@@ -209,12 +185,7 @@ abstract class Rah_Eien_Base
     }
 
     /**
-     * Trashes the temporary file, and closes the temporary file instance.
-     *
-     * If you need to get rid of the temporary file instance and discard
-     * the file, call this method.
-     *
-     * @return bool
+     * {@inheritdoc}
      */
 
     public function trash()
@@ -225,14 +196,7 @@ abstract class Rah_Eien_Base
     }
 
     /**
-     * Moves a temporary file to its final location.
-     *
-     * This method first tries renaming. If that fails
-     * due to permissions, it tries copying and
-     * after which is removes the left over file.
-     *
-     * @return Rah_Eien_Base
-     * @throws Exception
+     * {@inheritdoc}
      */
 
     public function move()

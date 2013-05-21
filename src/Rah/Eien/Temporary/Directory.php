@@ -28,13 +28,13 @@
  * Creates a new temporary directory instance.
  */
 
-class Rah_Eien_Temporary_Directory extends Rah_Eien_Base
+class Rah_Eien_Temporary_Directory extends Rah_Eien_Base implements Rah_Eien_Temporary_Template
 {
     /**
-     * Initializes.
+     * {@intheritdoc}
      */
 
-    protected function init()
+    public function init()
     {
         $this->tmpDirectory();
     }

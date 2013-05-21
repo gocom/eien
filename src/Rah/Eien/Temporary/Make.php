@@ -28,13 +28,13 @@
  * Makes an existing file into a temporary file.
  */
 
-class Rah_Eien_Temporary_Make extends Rah_Eien_Base
+class Rah_Eien_Temporary_Make extends Rah_Eien_Base implements Rah_Eien_Temporary_Template
 {
     /**
-     * Initializes.
+     * {@inheritdoc}
      */
 
-    protected function init()
+    public function init()
     {
         if ($this->config->file)
         {

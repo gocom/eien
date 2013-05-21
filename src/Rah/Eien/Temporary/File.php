@@ -28,13 +28,13 @@
  * Creates a new temporary file instance.
  */
 
-class Rah_Eien_Temporary_File extends Rah_Eien_Base
+class Rah_Eien_Temporary_File extends Rah_Eien_Base implements Rah_Eien_Temporary_Template
 {
     /**
-     * Initializes.
+     * {@inheritdoc}
      */
 
-    protected function init()
+    public function init()
     {
         $this->tmpFile();
     }
