@@ -1,0 +1,29 @@
+{
+    "name": "rah/eien",
+    "description": "PHP helper library for handling temporary files",
+    "keywords": ["temporary", "tmp", "temp", "file", "directory"],
+    "homepage": "https://github.com/gocom/eien",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jukka Svahn",
+            "homepage": "https://github.com/gocom",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/gocom/eien/issues",
+        "source": "https://github.com/gocom/eien"
+    },
+    "autoload": {
+        "psr-0": {
+            "Rah\\Eien\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    }
+}
