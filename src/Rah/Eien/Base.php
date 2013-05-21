@@ -120,7 +120,7 @@ abstract class Rah_Eien_Base
      * but not necessarily one where you should be writing.
      */
 
-    protected function findTmpDirectory()
+    public function findTmpDirectory()
     {
         if ($this->config->tmp !== null)
         {
@@ -201,6 +201,15 @@ abstract class Rah_Eien_Base
                 throw new Exception('Unable to remove the temporary trash.');
             }
         }
+    }
+
+    /**
+     * Trashes the temporary file.
+     */
+
+    public function trash()
+    {
+        $this->clean();
     }
 
     /**
