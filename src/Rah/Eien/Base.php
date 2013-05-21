@@ -81,14 +81,11 @@ abstract class Rah_Eien_Base
 
     public function __destruct()
     {
-        if ($this->temp !== null && $this->config->keep === false)
-        {
-            $this->clean();
+        $this->clean();
 
-            if ($this->config->final !== null)
-            {
-                $this->move();
-            }
+        if ($this->temp !== null && $this->config->final !== null)
+        {
+            $this->move();
         }
     }
 
