@@ -216,15 +216,6 @@ abstract class Rah_Eien_Base
     }
 
     /**
-     * Change temporary file mode.
-     */
-
-    public function chmod($mode)
-    {
-        chmod($this->temp, $mode);
-    }
-
-    /**
      * Moves a temporary file to the final location.
      *
      * This method first tries renaming. If that fails
