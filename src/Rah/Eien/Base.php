@@ -269,7 +269,7 @@ abstract class Rah_Eien_Base
      * @param string $status
      */
 
-    public function isFile($status = 'rw')
+    protected function isFile($status = 'rw')
     {
         if (file_exists($this->config->file) === false)
         {
