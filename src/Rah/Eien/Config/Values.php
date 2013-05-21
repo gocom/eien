@@ -35,7 +35,7 @@
  * }
  */
 
-abstract class Rah_Eien_Config
+abstract class Rah_Eien_Config_Values
 {
     /**
      * The filename.

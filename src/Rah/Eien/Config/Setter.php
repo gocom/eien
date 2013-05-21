@@ -24,29 +24,18 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- * Configures a temporary file instance.
- */
-
-class Rah_Eien_File extends Rah_Eien_Config_Values implements Rah_Eien_Config_Setter
+interface Rah_Eien_Config_Setter
 {
     /**
-     * {@inheritdoc}
+     * Sets or gets configuration options.
+     *
+     * If no args is provided, returns the current value.
+     * Otherwise sets the value, and returns $this,
+     * making it chainable.
+     *
+     * @return $this
+     * @throws Exception
      */
 
-    public function __call($name, $args)
-    {
-        if (property_exists($this, $name) === false)
-        {
-            throw new Exception('Unknown config option given: '.$name);
-        }
-
-        if (empty($args))
-        {
-            return $this->$name;
-        }
-
-        $this->$name = $args[0];
-        return $this;
-    }
+    public function __call($name, $args);
 }
