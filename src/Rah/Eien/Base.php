@@ -255,7 +255,7 @@ abstract class Rah_Eien_Base
             return $this;
         }
 
-        if (@copy($this->temp, $this->config->finale) && unlink($this->temp))
+        if (@copy($this->temp, $this->config->final) && unlink($this->temp))
         {
             return $this;
         }
