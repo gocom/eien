@@ -25,7 +25,7 @@
  */
 
 /**
- * Handles temporary files.
+ * Creates a new temporary file instance.
  */
 
 class Rah_Eien_Temporary_File extends Rah_Eien_Base
