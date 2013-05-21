@@ -228,7 +228,7 @@ abstract class Rah_Eien_Base
 
     public function move()
     {
-        if (!$this->temp || !$this->config->final)
+        if (!$this->temp || $this->config->final === null)
         {
             throw new Exception('No file to move specified.');
         }
@@ -259,12 +259,12 @@ abstract class Rah_Eien_Base
 
     public function isFile($status = 'rw')
     {
-        if (!file_exists($this->config->file))
+        if (file_exists($this->config->file) === false)
         {
             throw new Exception('File does not exists: '.$this->config->file);
         }
 
-        if (!is_file($this->config->file))
+        if (is_file($this->config->file) === false)
         {
             throw new Exception('Specified file is not a file: '.$this->config->file);
         }
