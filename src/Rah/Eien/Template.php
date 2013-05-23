@@ -25,9 +25,7 @@
  */
 
 /**
- * Base template.
- *
- * These basically are the public methods exposed to your disposal.
+ * Base interface.
  */
 
 interface Rah_Eien_Template
@@ -98,7 +96,7 @@ interface Rah_Eien_Template
      * due to permissions, it tries copying and
      * after which is removes the left over file.
      *
-     * @return Rah_Eien_Base
+     * @return Rah_Eien_Template
      * @throws Exception
      */
 
