@@ -33,7 +33,8 @@ interface Rah_Eien_Template
     /**
      * Constructor.
      *
-     * @param Rah_Eien_Config_Values $config
+     * @param  Rah_Eien_Config_Values $config
+     * @throws Rah_Eien_Exception
      */
 
     public function __construct(Rah_Eien_Config_Values $config = null);
@@ -73,7 +74,7 @@ interface Rah_Eien_Template
      * by the method. It might be a writeable directory,
      * but not necessarily one where you should be writing.
      *
-     * @throws Exception
+     * @throws Rah_Eien_Exception
      */
 
     public function findTmpDirectory();
@@ -84,7 +85,8 @@ interface Rah_Eien_Template
      * If you need to get rid of the temporary file instance and discard
      * the file, call this method.
      *
-     * @return bool
+     * @return Rah_Eien_Template
+     * @throws Rah_Eien_Exception
      */
 
     public function trash();
@@ -97,7 +99,7 @@ interface Rah_Eien_Template
      * after which is removes the left over file.
      *
      * @return Rah_Eien_Template
-     * @throws Exception
+     * @throws Rah_Eien_Exception
      */
 
     public function move();

@@ -133,6 +133,8 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
 
     /**
      * Gets a path to a temporary file.
+     *
+     * @throws Rah_Eien_Exception
      */
 
     protected function tmpFile()
@@ -157,6 +159,8 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
 
     /**
      * Gets a path to a temporary directory.
+     *
+     * @throws Rah_Eien_Exception
      */
 
     protected function tmpDirectory()
@@ -171,6 +175,8 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
 
     /**
      * Clean temporary trash.
+     *
+     * @throws Rah_Eien_Exception
      */
 
     protected function clean()
@@ -192,7 +198,7 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
     {
         $this->clean();
         $this->temp = null;
-        return true;
+        return $this;
     }
 
     /**
@@ -229,7 +235,8 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
     /**
      * Checks file status.
      *
-     * @param string $status
+     * @param  string $status
+     * @throws Rah_Eien_Exception
      */
 
     protected function isFile($status = 'rw')

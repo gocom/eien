@@ -30,11 +30,9 @@ interface Rah_Eien_Config_Setter
      * Sets or gets configuration options.
      *
      * If no args is provided, returns the current value.
-     * Otherwise sets the value, and returns $this,
-     * making it chainable.
      *
-     * @return $this
-     * @throws Exception
+     * @return Rah_Eien_Config_Setter
+     * @throws Rah_Eien_Config_Exception
      */
 
     public function __call($name, $args);
