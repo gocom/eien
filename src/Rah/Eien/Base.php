@@ -110,13 +110,13 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
                 throw new Rah_Eien_Exception('Temporary directory "'.$this->config->tmp.'" is not writeable.');
             }
 
-            return;
+            return $this->config->tmp;
         }
 
         if (($directory = ini_get('upload_tmp_dir')) && is_writeable($directory))
         {
             $this->config->tmp = $directory;
-            return;
+            return $directory;
         }
 
         if (function_exists('sys_get_temp_dir'))
@@ -124,7 +124,7 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
             if (($directory = sys_get_temp_dir()) && is_writeable($directory) && $directory = realpath($directory))
             {
                 $this->config->tmp = $directory;
-                return;
+                return $directory;
             }
         }
 

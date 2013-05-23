@@ -74,6 +74,7 @@ interface Rah_Eien_Template
      * by the method. It might be a writeable directory,
      * but not necessarily one where you should be writing.
      *
+     * @return string Path to the temporary directory
      * @throws Rah_Eien_Exception
      */
 
