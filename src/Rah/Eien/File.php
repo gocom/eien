@@ -38,7 +38,7 @@ class Rah_Eien_File extends Rah_Eien_Config_Values implements Rah_Eien_Config_Se
     {
         if (property_exists($this, $name) === false)
         {
-            throw new Exception('Unknown config option given: '.$name);
+            throw new Rah_Eien_Config_Exception('Unknown config option given: '.$name);
         }
 
         if (empty($args))

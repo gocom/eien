@@ -39,6 +39,8 @@ interface Rah_Eien_Temporary_Template
      * All other exposed methods should avoid performing any actual
      * changes the to filesystem, and only retrieve information already
      * initialized at the init.
+     *
+     * @throws Rah_Eien_Temporary_Exception
      */
 
     public function init();

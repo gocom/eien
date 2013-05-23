@@ -107,7 +107,7 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
         {
             if (!is_writeable($this->config->tmp))
             {
-                throw new Exception('Temporary directory "'.$this->config->tmp.'" is not writeable.');
+                throw new Rah_Eien_Exception('Temporary directory "'.$this->config->tmp.'" is not writeable.');
             }
 
             return;
@@ -128,7 +128,7 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
             }
         }
 
-        throw new Exception('Unable to find the temporary directory.');
+        throw new Rah_Eien_Exception('Unable to find the temporary directory.');
     }
 
     /**
@@ -139,14 +139,14 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
     {
         if (($this->temp = tempnam($this->config->tmp, $this->config->prefix)) === false)
         {
-            throw new Exception('Unable to create a temporary file, check the configured tmp directory.');
+            throw new Rah_Eien_Exception('Unable to create a temporary file, check the configured tmp directory.');
         }
 
         if ($this->config->extension)
         {
             if (rename($this->temp, $this->temp.'.'.$this->config->extension) === false)
             {
-                throw new Exception('Unable to add "'.$this->config->extension.'" extension to "'.$this->temp.'".');
+                throw new Rah_Eien_Exception('Unable to add "'.$this->config->extension.'" extension to "'.$this->temp.'".');
             }
 
             $this->temp .= '.'.$this->config->extension;
@@ -165,7 +165,7 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
 
         if (mkdir($this->temp) === false)
         {
-            throw new Exception('Unable to create a temporary directory, check the configured tmp directory.');
+            throw new Rah_Eien_Exception('Unable to create a temporary directory, check the configured tmp directory.');
         }
     }
 
@@ -179,7 +179,7 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
         {
             if (unlink($this->temp) === false)
             {
-                throw new Exception('Unable to remove the temporary trash.');
+                throw new Rah_Eien_Exception('Unable to remove the temporary trash.');
             }
         }
     }
@@ -203,12 +203,12 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
     {
         if ($this->temp === null || $this->config->final === null)
         {
-            throw new Exception('No file to move specified.');
+            throw new Rah_Eien_Exception('No file to move specified.');
         }
 
         if (is_writeable($this->config->final) === false)
         {
-            throw new Exception('Unable to write to: '.$this->config->final);
+            throw new Rah_Eien_Exception('Unable to write to: '.$this->config->final);
         }
 
         if (@rename($this->temp, $this->config->final))
@@ -223,7 +223,7 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
             return $this;
         }
 
-        throw new Exception('Unable to move the temporary file.');
+        throw new Rah_Eien_Exception('Unable to move the temporary file.');
     }
 
     /**
@@ -236,22 +236,22 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
     {
         if (file_exists($this->config->file) === false)
         {
-            throw new Exception('File does not exists: '.$this->config->file);
+            throw new Rah_Eien_Exception('File does not exists: '.$this->config->file);
         }
 
         if (is_file($this->config->file) === false)
         {
-            throw new Exception('Specified file is not a file: '.$this->config->file);
+            throw new Rah_Eien_Exception('Specified file is not a file: '.$this->config->file);
         }
 
         if (strpos($status, 'r') !== false && is_readable($this->config->file) === false)
         {
-            throw new Exception('File is not readable: '.$this->config->file);
+            throw new Rah_Eien_Exception('File is not readable: '.$this->config->file);
         }
 
         if (strpos($status, 'w') !== false && is_writeable($this->config->file) === false)
         {
-            throw new Exception('File is not writeable: '.$this->config->file);
+            throw new Rah_Eien_Exception('File is not writeable: '.$this->config->file);
         }
     }
 }

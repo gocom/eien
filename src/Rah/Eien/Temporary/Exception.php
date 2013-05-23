@@ -25,35 +25,9 @@
  */
 
 /**
- * Makes an existing file into a temporary file.
+ * Exception for temporary file actions.
  */
 
-class Rah_Eien_Temporary_Make extends Rah_Eien_Base implements Rah_Eien_Temporary_Template
+class Rah_Eien_Temporary_Exception extends Exception
 {
-    /**
-     * {@inheritdoc}
-     */
-
-    public function init()
-    {
-        if ($this->config->file)
-        {
-            $this->fromFile();
-        }
-        else
-        {
-            throw new Rah_Eien_Temporary_Exception('No source file specified.');
-        }
-    }
-
-    /**
-     * Makes a temporary file from the given source file.
-     */
-
-    protected function fromFile()
-    {
-        $this->isFile();
-        $this->tmpFile();
-        new Rah_Eien_Action_Copy($this->config->file, $this->temp);
-    }
 }

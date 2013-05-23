@@ -37,8 +37,9 @@ class Rah_Eien_Action_Copy
     /**
      * Constructor.
      *
-     * @param string $source
-     * @param string $target
+     * @param  string $source
+     * @param  string $target
+     * @throws Rah_Eien_Action_Exception
      */
 
     public function __construct($source, $target)
@@ -60,7 +61,7 @@ class Rah_Eien_Action_Copy
         }
         else
         {
-            throw new Exception('Unable to copy "'.$source.'" to "'.$target.'".');
+            throw new Rah_Eien_Action_Exception('Unable to copy "'.$source.'" to "'.$target.'".');
         }
     }
 }
