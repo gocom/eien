@@ -1,7 +1,7 @@
 Eien - PHP, have a temporary file
 ====
 
-[Packagist](https://packagist.org/packages/rah/eien) | [Twitter](http://twitter.com/gocom) | [Issues](http://github.com/gocom/eien/issues) | [![Build Status](https://travis-ci.org/gocom/eien.png?branch=master)](https://travis-ci.org/gocom/eien)
+[Packagist](https://packagist.org/packages/rah/eien) | [Twitter](http://twitter.com/gocom) | [Issues](https://github.com/gocom/eien/issues) | [![Build Status](https://travis-ci.org/gocom/eien.png?branch=master)](https://travis-ci.org/gocom/eien)
 
 Eien is a small PHP helper library for handling temporary files. Get, create, make, remove and flush temporary files and directories. Currently unstable, work in progress.
 
