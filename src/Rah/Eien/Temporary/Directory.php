@@ -38,4 +38,47 @@ class Rah_Eien_Temporary_Directory extends Rah_Eien_Base implements Rah_Eien_Tem
     {
         $this->tmpDirectory();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+
+    protected function clean()
+    {
+        if ($this->temp !== null && file_exists($this->temp))
+        {
+            if (is_file($this->temp))
+            {
+                parent::clean();
+            }
+            else if (is_dir($this->temp))
+            {
+                $files = new RecursiveDirectoryIterator($this->temp);
+                $file = new RecursiveIteratorIterator($files, RecursiveIteratorIterator::CHILD_FIRST);
+
+                while ($file->valid())
+                {
+                    if (!$file->isDot())
+                    {
+                        if ($file->isDir())
+                        {
+                            if (rmdir($file->getPathname()) === false)
+                            {
+                                throw new Rah_Eien_Exception('Unable to remove the temporary trash.');
+                            }
+                        }
+                        else
+                        {
+                            if (unlink($file->getPathname()) === false)
+                            {
+                                throw new Rah_Eien_Exception('Unable to remove the temporary trash.');
+                            }
+                        }
+                    }
+
+                    $file->next();
+                }
+            }
+        }
+    }
 }
