@@ -212,11 +212,6 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
             throw new Rah_Eien_Exception('No file to move specified.');
         }
 
-        if (is_writeable($this->config->final) === false)
-        {
-            throw new Rah_Eien_Exception('Unable to write to: '.$this->config->final);
-        }
-
         if (@rename($this->temp, $this->config->final))
         {
             $this->trash();
