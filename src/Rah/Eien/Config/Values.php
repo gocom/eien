@@ -40,6 +40,9 @@ abstract class Rah_Eien_Config_Values
     /**
      * The filename.
      *
+     * This is used when creating a temporary file from
+     * an existing file. Takes a path to the source file.
+     *
      * @var string
      */
 
