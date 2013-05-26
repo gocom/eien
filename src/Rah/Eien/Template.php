@@ -59,7 +59,7 @@ interface Rah_Eien_Template
      * @return string
      */
 
-    public function getPath();
+    public function getFilename();
 
     /**
      * Finds the default temporary directory.

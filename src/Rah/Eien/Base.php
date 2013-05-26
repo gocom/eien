@@ -85,14 +85,14 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
 
     public function __toString()
     {
-        return $this->getPath();
+        return $this->getFilename();
     }
 
     /**
      * {@inheritdoc}
      */
 
-    public function getPath()
+    public function getFilename()
     {
         return (string) $this->temp;
     }
