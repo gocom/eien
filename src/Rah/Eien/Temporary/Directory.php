@@ -37,6 +37,16 @@ class Rah_Eien_Temporary_Directory extends Rah_Eien_Base implements Rah_Eien_Tem
     public function init()
     {
         $this->tmpDirectory();
+
+        if ($this->config->file)
+        {
+            if (!file_exists($this->config->file) || !is_dir($this->config->file))
+            {
+                throw new Rah_Eien_Temporary_Exception('Source is not readable directory.');
+            }
+
+            new Rah_Eien_Action_Copy($this->config->file, $this->temp);
+        }
     }
 
     /**

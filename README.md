@@ -33,7 +33,7 @@ In addition to creating brand new temporary files, or getting paths as strings, 
 ```php
 $tmp = new Rah_Eien_File();
 $tmp->file('/path/to/source/file.txt');
-echo (string) new Rah_Eien_Temporary_Make($tmp);
+echo (string) new Rah_Eien_Temporary_File($tmp);
 ```
 
 ### Create a new temporary directory and return its path

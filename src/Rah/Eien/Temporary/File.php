@@ -37,5 +37,10 @@ class Rah_Eien_Temporary_File extends Rah_Eien_Base implements Rah_Eien_Temporar
     public function init()
     {
         $this->tmpFile();
+
+        if ($this->config->file)
+        {
+            new Rah_Eien_Action_Copy($this->config->file, $this->temp);
+        }
     }
 }
