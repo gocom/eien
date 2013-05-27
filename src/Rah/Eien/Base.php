@@ -234,16 +234,21 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
      * @throws Rah_Eien_Exception
      */
 
-    protected function isFile($status = 'rw')
+    protected function isFile($status = 'rwf')
     {
         if (file_exists($this->config->file) === false)
         {
             throw new Rah_Eien_Exception('File does not exists: '.$this->config->file);
         }
 
-        if (is_file($this->config->file) === false)
+        if (strpos($status, 'f') !== false && is_file($this->config->file) === false)
         {
             throw new Rah_Eien_Exception('Specified file is not a file: '.$this->config->file);
+        }
+
+        if (strpos($status, 'd') !== false && is_dir($this->config->file) === false)
+        {
+            throw new Rah_Eien_Exception('Specified file is not a directory: '.$this->config->file);
         }
 
         if (strpos($status, 'r') !== false && is_readable($this->config->file) === false)
