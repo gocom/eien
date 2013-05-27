@@ -29,6 +29,11 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
     public function testTrashLeakage()
     {
         $directory = new Rah_Eien_Temporary_Directory();
+
+        file_put_contents($directory->getFilename() . '/testFile.txt', 'Test');
+        mkdir($directory->getFilename() . '/testDir');
+        file_put_contents($directory->getFilename() . '/testDir/testFile.txt', 'Test');
+
         $file = new Rah_Eien_Temporary_File();
         $filePath = (string) $file;
         $directoryPath = (string) $directory;
