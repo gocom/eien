@@ -47,6 +47,14 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
     protected $config;
 
     /**
+     * Whether the directory has been cleaned or not.
+     *
+     * @var bool
+     */
+
+    protected $clean = false;
+
+    /**
      * {@inheritdoc}
      */
 
@@ -71,12 +79,12 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
 
     public function __destruct()
     {
-        $this->clean();
-
-        if ($this->temp !== null && $this->config->final !== null)
+        if ($this->clean === false && $this->config->final !== null)
         {
             $this->move();
         }
+
+        $this->trash();
     }
 
     /**
@@ -181,10 +189,11 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
 
     protected function clean()
     {
-        if ($this->temp !== null && file_exists($this->temp))
+        if ($this->temp && file_exists($this->temp))
         {
             if (unlink($this->temp) === false)
             {
+                $this->clean = false;
                 throw new Rah_Eien_Exception('Unable to remove the temporary trash.');
             }
         }
@@ -196,8 +205,12 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
 
     public function trash()
     {
-        $this->clean();
-        $this->temp = null;
+        if ($this->clean === false)
+        {
+            $this->clean = true;
+            $this->clean();
+        }
+
         return $this;
     }
 
@@ -207,9 +220,9 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
 
     public function move()
     {
-        if ($this->temp === null || $this->config->final === null)
+        if ($this->clean === true || !$this->temp || $this->config->final === null)
         {
-            throw new Rah_Eien_Exception('No file to move specified.');
+            throw new Rah_Eien_Exception('No file to move specified, or temporary trash cleared already.');
         }
 
         if (@rename($this->temp, $this->config->final) === false)
@@ -222,9 +235,11 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
             {
                 throw new Rah_Eien_Exception('Unable to move the temporary file: '.$e->getMessage());
             }
+
+            $this->trash();
         }
 
-        $this->trash();
+        $this->clean = true;
         return $this;
     }
 }
