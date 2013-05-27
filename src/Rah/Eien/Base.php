@@ -161,8 +161,6 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
 
             $this->temp .= '.'.$this->config->extension;
         }
-
-        $this->clean();
     }
 
     /**
