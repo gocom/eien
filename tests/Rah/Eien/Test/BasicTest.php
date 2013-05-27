@@ -9,7 +9,7 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
     public function testGetPathToTemporaryFile()
     {
         $path = (string) new Rah_Eien_Temporary_File();
-        return $path && is_writeable($path);
+        $this->assertTrue($path !== '' && is_dir(dirname($path)));
     }
 
     /**
@@ -18,8 +18,12 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
 
     public function testGetPathToTemporaryDirectory()
     {
+        $file = new Rah_Eien_Temporary_Directory();
+        $path = $file->getFilename();
+        $this->assertTrue($path && is_dir($path) && is_writeable($path));
+
         $path = (string) new Rah_Eien_Temporary_Directory();
-        return $path && is_writeable($path);
+        $this->assertTrue($path && !file_exists($path));
     }
 
     /**
@@ -38,7 +42,7 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
         $filePath = (string) $file;
         $directoryPath = (string) $directory;
         unset($file, $directory);
-        return !file_exists($filePath) && !file_exists($directoryPath);
+        $this->assertTrue(!file_exists($filePath) && !file_exists($directoryPath));
     }
 
     /**
@@ -56,7 +60,7 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
         file_put_contents($file->getFilename(), 'Test');
         $file->move();
 
-        return file_get_contents($final) === 'Test';
+        $this->assertTrue(file_get_contents($final) === 'Test');
     }
 
     /**
@@ -73,7 +77,7 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
         $file = new Rah_Eien_Temporary_File($tmp);
         unlink($source);
 
-        return file_get_contents($file->getFilename()) === 'Test';
+        $this->assertTrue(file_get_contents($file->getFilename()) === 'Test');
     }
 
     /**
@@ -95,6 +99,6 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
         $file = new Rah_Eien_Temporary_Directory($tmp);
         $tmp = $file->getFilename();
 
-        return file_exists($tmp . '/file1.txt') && file_exists($tmp . '/testDir/file2.txt');
+        $this->assertTrue(file_exists($tmp . '/file1.txt') && file_exists($tmp . '/testDir/file2.txt'));
     }
 }
