@@ -44,10 +44,7 @@ class Rah_Eien_Action_Copy
 
     public function __construct($source, $target)
     {
-        if (file_exists($source) === false || is_readable($source) === false)
-        {
-            throw new Rah_Eien_Action_Exception('Source can not be read.');
-        }
+        new Rah_Eien_Action_Stat($source, 'r');
 
         if (is_dir($source))
         {
@@ -69,9 +66,11 @@ class Rah_Eien_Action_Copy
 
     protected function copyFile($source, $target)
     {
-        if (file_exists($target) && (is_file($target) === false || is_writeable($target) === false))
+        new Rah_Eien_Action_Stat($source, 'rf');
+
+        if (file_exists($target))
         {
-            throw new Rah_Eien_Action_Exception('Unable copy a file. Target is not writeable.');
+            new Rah_Eien_Action_Stat($target, 'wf');
         }
 
         if (($in = fopen($source, 'rb')) && ($out = fopen($target, 'wb')))
@@ -105,10 +104,8 @@ class Rah_Eien_Action_Copy
 
     protected function copyDirectory($source, $target)
     {
-        if (file_exists($target) && (is_dir($target) === false || is_writeable($target) === false))
-        {
-            throw new Rah_Eien_Action_Exception('Unable copy directory. Target is not directory.');
-        }
+        new Rah_Eien_Action_Stat($source, 'rd');
+        new Rah_Eien_Action_Stat($target, 'wd');
 
         if (($cwd = getcwd()) === false || chdir($dest) === false)
         {
