@@ -212,18 +212,19 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
             throw new Rah_Eien_Exception('No file to move specified.');
         }
 
-        if (@rename($this->temp, $this->config->final))
+        if (@rename($this->temp, $this->config->final) === false)
         {
-            $this->trash();
-            return $this;
+            try
+            {
+                new Rah_Eien_Action_Copy($this->temp, $this->config->final);
+            }
+            catch (Exception $e)
+            {
+                throw new Rah_Eien_Exception('Unable to move the temporary file: ' . $e->getMessage());
+            }
         }
 
-        if (@copy($this->temp, $this->config->final))
-        {
-            $this->trash();
-            return $this;
-        }
-
-        throw new Rah_Eien_Exception('Unable to move the temporary file.');
+        $this->trash();
+        return $this;
     }
 }
