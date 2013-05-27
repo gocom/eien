@@ -107,7 +107,7 @@ class Rah_Eien_Action_Copy
         new Rah_Eien_Action_Stat($source, 'rd');
         new Rah_Eien_Action_Stat($target, 'wd');
 
-        if (($cwd = getcwd()) === false || chdir($dest) === false)
+        if (($cwd = getcwd()) === false || chdir($target) === false)
         {
             throw new Rah_Eien_Action_Exception('Unable to change the current working directory for writing.');
         }
