@@ -44,6 +44,36 @@ class Rah_Eien_Action_Copy
 
     public function __construct($source, $target)
     {
+        if (file_exists($source) === false || is_readable($source) === false)
+        {
+            throw new Rah_Eien_Action_Exception('Source can not be read.');
+        }
+
+        if (is_dir($source))
+        {
+            $this->copyDirectory($source, $target);
+        }
+        else
+        {
+            $this->copyFile($source, $target);
+        }
+    }
+
+    /**
+     * Copies a file.
+     *
+     * @param  string $source
+     * @param  string $target
+     * @throws Rah_Eien_Action_Exception
+     */
+
+    protected function copyFile($source, $target)
+    {
+        if (file_exists($target) && (is_file($target) === false || is_writeable($target) === false))
+        {
+            throw new Rah_Eien_Action_Exception('Unable copy a file. Target is not writeable.');
+        }
+
         if (($in = fopen($source, 'rb')) && ($out = fopen($target, 'wb')))
         {
             flock($in, LOCK_EX);
@@ -62,6 +92,57 @@ class Rah_Eien_Action_Copy
         else
         {
             throw new Rah_Eien_Action_Exception('Unable to copy "'.$source.'" to "'.$target.'".');
+        }
+    }
+
+    /**
+     * Copies a directory.
+     *
+     * @param  string $source
+     * @param  string $target
+     * @throws Rah_Eien_Action_Exception
+     */
+
+    protected function copyDirectory($source, $target)
+    {
+        if (file_exists($target) && (is_dir($target) === false || is_writeable($target) === false))
+        {
+            throw new Rah_Eien_Action_Exception('Unable copy directory. Target is not directory.');
+        }
+
+        if (($cwd = getcwd()) === false || chdir($dest) === false)
+        {
+            throw new Rah_Eien_Action_Exception('Unable to change the current working directory for writing.');
+        }
+
+        $files = new RecursiveDirectoryIterator($source);
+        $file = new RecursiveIteratorIterator($files, RecursiveIteratorIterator::SELF_FIRST);
+
+        while ($file->valid())
+        {
+            if ($file->isDot() === false)
+            {
+                $name = $file->getSubPathName();
+
+                if ($file->isDir())
+                {
+                    if (mkdir($name) === false)
+                    {
+                        throw new Rah_Eien_Exception('Unable to create a directory: '.$name);
+                    }
+                }
+                else
+                {
+                    $this->copyFile($file->getPathname(), $name);
+                }
+            }
+
+            $file->next();
+        }
+
+        if (chdir($cwd) === false)
+        {
+            throw new Rah_Eien_Action_Exception('Unable to restore the current working directory.');
         }
     }
 }
