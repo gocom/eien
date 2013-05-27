@@ -189,8 +189,17 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
 
     protected function clean()
     {
-        if ($this->temp && file_exists($this->temp))
+        if ($this->temp)
         {
+            try
+            {
+                new Rah_Eien_Action_Stat($this->temp, 'wf');
+            }
+            catch (Exception $e)
+            {
+                return;
+            }
+
             if (unlink($this->temp) === false)
             {
                 $this->clean = false;

@@ -55,7 +55,9 @@ class Rah_Eien_Temporary_Directory extends Rah_Eien_Base implements Rah_Eien_Tem
 
     protected function clean()
     {
-        if ($this->temp !== null && file_exists($this->temp))
+        clearstatcache();
+
+        if ($this->temp && file_exists($this->temp))
         {
             if (is_file($this->temp))
             {

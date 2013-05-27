@@ -44,6 +44,8 @@ class Rah_Eien_Action_Stat
 
     public function __construct($filename, $status = 'rwf')
     {
+        clearstatcache();
+
         if (file_exists($filename) === false)
         {
             throw new Rah_Eien_Action_Exception('File does not exists: '.$filename);
