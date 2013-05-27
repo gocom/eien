@@ -97,7 +97,15 @@ interface Rah_Eien_Template
      *
      * This method first tries renaming. If that fails
      * due to permissions, it tries copying and
-     * after which is removes the left over file.
+     * after which is removes the left over temporary file.
+     *
+     * If the moved file is a directory,
+     * the final target location needs to point to an
+     * existing writeable directory.
+     *
+     * If the moved file is a file, the directory the
+     * file is moved to is required to exists. If the
+     * target file exists, it will be overwritten.
      *
      * @return Rah_Eien_Template
      * @throws Rah_Eien_Exception

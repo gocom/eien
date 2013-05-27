@@ -91,4 +91,30 @@ class Rah_Eien_Temporary_Directory extends Rah_Eien_Base implements Rah_Eien_Tem
             }
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+
+    public function move()
+    {
+        if ($this->temp === null || $this->config->final === null)
+        {
+            throw new Rah_Eien_Exception('No file to move specified.');
+        }
+
+        try
+        {
+            new Rah_Eien_Action_Stat($this->temp, 'rd');
+            new Rah_Eien_Action_Stat($this->config->final, 'wd');
+            new Rah_Eien_Action_Copy($this->temp, $this->config->final);
+        }
+        catch (Exception $e)
+        {
+            throw new Rah_Eien_Exception('Unable to move the temporary directory: '.$e->getMessage());
+        }
+
+        $this->trash();
+        return $this;
+    }
 }
