@@ -75,4 +75,26 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
 
         return file_get_contents($file->getFilename()) === 'Test';
     }
+
+    /**
+     * Test making a temporary directory from source.
+     */
+
+    public function testMakingDirectory()
+    {
+        // Create test source directory.
+        $sourceDir = new Rah_Eien_Temporary_Directory();
+        $source = $sourceDir->getFilename();
+        file_put_contents($source . '/file1.txt', 'Test');
+        mkdir($source . '/testDir');
+        file_put_contents($source . '/testDir/file2.txt', 'Test');
+
+        // Create temporary directory from the files.
+        $tmp = new Rah_Eien_File();
+        $tmp->file($source);
+        $file = new Rah_Eien_Temporary_Directory($tmp);
+        $tmp = $file->getFilename();
+
+        return file_exists($tmp . '/file1.txt') && file_exists($tmp . '/testDir/file2.txt');
+    }
 }
