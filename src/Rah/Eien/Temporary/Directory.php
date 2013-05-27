@@ -68,7 +68,7 @@ class Rah_Eien_Temporary_Directory extends Rah_Eien_Base implements Rah_Eien_Tem
 
                 while ($file->valid())
                 {
-                    if (!$file->isDot())
+                    if ($file->isDot() === false)
                     {
                         if ($file->isDir())
                         {
