@@ -66,6 +66,7 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
         $tmp = new Rah_Eien_File();
         $tmp->file($source);
         $file = new Rah_Eien_Temporary_File($tmp);
+        unlink($source);
 
         return file_get_contents($file->getFilename()) === 'Test';
     }
