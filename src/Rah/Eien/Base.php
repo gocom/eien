@@ -220,7 +220,7 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
             }
             catch (Exception $e)
             {
-                throw new Rah_Eien_Exception('Unable to move the temporary file: ' . $e->getMessage());
+                throw new Rah_Eien_Exception('Unable to move the temporary file: '.$e->getMessage());
             }
         }
 
