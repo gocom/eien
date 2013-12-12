@@ -35,7 +35,6 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
     {
         $directory = new Rah_Eien_Temporary_Directory();
         $path = (string) $directory;
-        clearstatcache();
 
         $this->assertFileExists($path);
         $this->assertTrue(is_dir($path), $path);
@@ -49,7 +48,8 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
         $this->assertFileExists($path . '/directory1/file.txt');
 
         unset($directory);
-        $this->assertTrue(!file_exists($path));
+        clearstatcache();
+        $this->assertTrue(!file_exists($path), $path);
     }
 
     public function testFileFinalMoving()
