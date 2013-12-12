@@ -73,20 +73,24 @@ class Rah_Eien_Action_Copy
             new Rah_Eien_Action_Stat($target, 'wf');
         }
 
-        if (($in = fopen($source, 'rb')) && ($out = fopen($target, 'wb')))
+        if ($in = fopen($source, 'rb'))
         {
-            flock($in, LOCK_EX);
-            flock($out, LOCK_EX);
-
-            while (!feof($in))
+            if ($out = fopen($target, 'wb'))
             {
-                fwrite($out, fread($in, 512));
+                flock($out, LOCK_EX);
+                flock($in, LOCK_EX);
+
+                while (!feof($in))
+                {
+                    fwrite($out, fread($in, 512));
+                }
+
+                flock($in, LOCK_UN);
+                flock($out, LOCK_UN);
+                fclose($out);
             }
 
-            flock($in, LOCK_UN);
-            flock($out, LOCK_UN);
             fclose($in);
-            fclose($out);
         }
         else
         {
