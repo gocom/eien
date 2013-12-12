@@ -127,7 +127,7 @@ class Rah_Eien_Action_Copy
 
                 if ($file->isDir())
                 {
-                    if (mkdir($name) === false)
+                    if (@mkdir($name) === false)
                     {
                         throw new Rah_Eien_Exception('Unable to create a directory: '.$name);
                     }
