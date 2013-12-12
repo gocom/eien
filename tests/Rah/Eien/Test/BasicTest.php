@@ -54,17 +54,17 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
 
     public function testFileFinalMoving()
     {
-        $final = (string) new Rah_Eien_Temporary_File();
+        $final = new Rah_Eien_Temporary_File();
 
         $tmp = new Rah_Eien_File();
-        $tmp->final($final);
+        $tmp->final((string) $final);
 
         $file = new Rah_Eien_Temporary_File($tmp);
         file_put_contents($file->getFilename(), 'Test');
         $file->move();
 
-        $this->assertFileExists($final);
-        $this->assertEquals('Test', file_get_contents($final), $final);
+        $this->assertFileExists((string) $final);
+        $this->assertEquals('Test', file_get_contents((string) $final), (string) $final);
     }
 
     public function testMakingFile()
