@@ -2,58 +2,59 @@
 
 class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * Makes sure simple usage case to get the filename works.
-     */
-
     public function testGetPathToTemporaryFile()
     {
         $path = (string) new Rah_Eien_Temporary_File();
-        $this->assertTrue($path !== '' && is_dir(dirname($path)));
+        $this->assertTrue($path !== '');
+        $this->assertFileExists(dirname($path));
     }
-
-    /**
-     * Gets path to the temporary directory.
-     */
 
     public function testGetPathToTemporaryDirectory()
     {
         $file = new Rah_Eien_Temporary_Directory();
         $path = $file->getFilename();
         $this->assertTrue($path && is_dir($path) && is_writeable($path));
-
-        $path = (string) new Rah_Eien_Temporary_Directory();
-        $this->assertTrue($path && !file_exists($path));
     }
 
-    /**
-     * Makes sure unsetting removes the temporary file.
-     */
+    public function testDirectoryDestructor()
+    {
+        $path = (string) new Rah_Eien_Temporary_Directory();
+        $this->assertTrue($path !== '');
+        $this->assertTrue(!file_exists($path));
+    }
 
-    public function testTrashLeakage()
+    public function testFileDestructor()
+    {
+        $file = new Rah_Eien_Temporary_File();
+        $path = (string) $file;
+        unset($file);
+        $this->assertTrue(!file_exists($path));
+    }
+
+    public function testRecursiveDirectoryDestructor()
     {
         $directory = new Rah_Eien_Temporary_Directory();
+        $path = (string) $directory;
 
-        file_put_contents($directory->getFilename() . '/testFile.txt', 'Test');
-        mkdir($directory->getFilename() . '/testDir');
-        file_put_contents($directory->getFilename() . '/testDir/testFile.txt', 'Test');
-        $directoryPath = (string) $directory;
+        $this->assertFileExists($path);
+        $this->assertTrue(is_dir($path));
+
+        mkdir($path . '/directory1');
+        mkdir($path . '/directory2');
+        file_put_contents($path . '/file.txt', 'Test');
+        file_put_contents($path . '/directory1/file.txt', 'Test');
+
+        $this->assertFileExists($path . '/file.txt');
+        $this->assertFileExists($path . '/directory1/file.txt');
+
         unset($directory);
-        $this->assertTrue(!file_exists($directoryPath));
-
-        $file = new Rah_Eien_Temporary_File();
-        $filePath = (string) $file;
-        unset($file);
-        $this->assertTrue(!file_exists($filePath));
+        $this->assertTrue(!file_exists($path));
     }
 
-    /**
-     * Make sure moving works correctly.
-     */
-
-    public function testMoving()
+    public function testFileFinalMoving()
     {
         $final = (string) new Rah_Eien_Temporary_File();
+        clearstatcache();
 
         $tmp = new Rah_Eien_File();
         $tmp->final($final);
@@ -62,46 +63,40 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
         file_put_contents($file->getFilename(), 'Test');
         $file->move();
 
+        $this->assertFileExists($final);
         $this->assertTrue(file_get_contents($final) === 'Test');
     }
 
-    /**
-     * Test making a temporary file from source.
-     */
-
     public function testMakingFile()
     {
-        $source = (string) new Rah_Eien_Temporary_File();
-        file_put_contents($source, 'Test');
+        $source = new Rah_Eien_Temporary_File();
+        file_put_contents((string) $source, 'Test');
 
         $tmp = new Rah_Eien_File();
-        $tmp->file($source);
+        $tmp->file((string) $source);
         $file = new Rah_Eien_Temporary_File($tmp);
-        unlink($source);
 
-        $this->assertTrue(file_get_contents($file->getFilename()) === 'Test');
+        $this->assertFileExists((string) $file);
+        $this->assertFileEquals((string) $source, (string) $file);
     }
-
-    /**
-     * Test making a temporary directory from source.
-     */
 
     public function testMakingDirectory()
     {
-        // Create test source directory.
-        $sourceDir = new Rah_Eien_Temporary_Directory();
-        $source = $sourceDir->getFilename();
+        $source = new Rah_Eien_Temporary_Directory();
 
-        file_put_contents($source . '/file1.txt', 'Test');
-        mkdir($source . '/testDir');
-        file_put_contents($source . '/testDir/file2.txt', 'Test');
+        mkdir((string) $source . '/directory');
+        file_put_contents((string) $source . '/file.txt', 'Test');
+        file_put_contents((string) $source . '/directory/file.txt', 'Test');
 
-        // Create temporary directory from the files.
+        $this->assertFileExists((string) $source . '/directory');
+        $this->assertFileExists((string) $source . '/file.txt');
+        $this->assertFileExists((string) $source . '/directory/file.txt');
+
         $tmp = new Rah_Eien_File();
-        $tmp->file($source);
+        $tmp->file((string) $source);
         $file = new Rah_Eien_Temporary_Directory($tmp);
-        $tmp = $file->getFilename();
 
-        $this->assertTrue(file_exists($tmp . '/file1.txt') && file_exists($tmp . '/testDir/file2.txt'));
+        $this->assertFileExists((string) $file);
+        $this->assertFileEquals((string) $source . '/directory/file.txt', (string) $file . '/directory/file.txt');
     }
 }
