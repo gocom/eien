@@ -54,7 +54,6 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
     public function testFileFinalMoving()
     {
         $final = (string) new Rah_Eien_Temporary_File();
-        clearstatcache();
 
         $tmp = new Rah_Eien_File();
         $tmp->final($final);
