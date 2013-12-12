@@ -181,8 +181,10 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
     protected function tmpDirectory()
     {
         $this->tmpFile();
+        unlink($this->temp);
+        $this->temp .= '.d';
 
-        if (unlink($this->temp) === false || mkdir($this->temp) === false)
+        if (mkdir($this->temp) === false)
         {
             throw new Rah_Eien_Exception('Unable to create a temporary directory, check the configured tmp directory.');
         }
