@@ -111,11 +111,6 @@ class Rah_Eien_Action_Copy
         new Rah_Eien_Action_Stat($source, 'rd');
         new Rah_Eien_Action_Stat($target, 'wd');
 
-        if (($cwd = getcwd()) === false || chdir($target) === false)
-        {
-            throw new Rah_Eien_Action_Exception('Unable to change the current working directory for writing.');
-        }
-
         $files = new RecursiveDirectoryIterator($source);
         $file = new RecursiveIteratorIterator($files, RecursiveIteratorIterator::SELF_FIRST);
 
@@ -123,7 +118,7 @@ class Rah_Eien_Action_Copy
         {
             if ($file->isDot() === false)
             {
-                $name = $file->getSubPathName();
+                $name = $target.'/'.$file->getSubPathName();
 
                 if ($file->isDir())
                 {
@@ -139,11 +134,6 @@ class Rah_Eien_Action_Copy
             }
 
             $file->next();
-        }
-
-        if (chdir($cwd) === false)
-        {
-            throw new Rah_Eien_Action_Exception('Unable to restore the current working directory.');
         }
     }
 }
