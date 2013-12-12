@@ -57,7 +57,7 @@ class Rah_Eien_Temporary_Directory extends Rah_Eien_Base implements Rah_Eien_Tem
     {
         clearstatcache();
 
-        if ($this->temp && file_exists($this->temp))
+        if ($this->temp)
         {
             if (is_file($this->temp))
             {
@@ -73,7 +73,7 @@ class Rah_Eien_Temporary_Directory extends Rah_Eien_Base implements Rah_Eien_Tem
                     if ($file->isDot() === false)
                     {
                         if ($file->isDir())
-                        {        
+                        {
                             if (rmdir($file->getPathname()) === false)
                             {
                                 throw new Rah_Eien_Exception('Unable to remove the temporary trash.');
