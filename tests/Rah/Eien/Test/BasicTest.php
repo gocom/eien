@@ -32,7 +32,6 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
 
     public function testTrashLeakage()
     {
-        /*
         $directory = new Rah_Eien_Temporary_Directory();
 
         file_put_contents($directory->getFilename() . '/testFile.txt', 'Test');
@@ -41,7 +40,6 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
         $directoryPath = (string) $directory;
         unset($directory);
         $this->assertTrue(!file_exists($directoryPath));
-        */
 
         $file = new Rah_Eien_Temporary_File();
         $filePath = (string) $file;
@@ -90,7 +88,6 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
 
     public function testMakingDirectory()
     {
-        /*
         // Create test source directory.
         $sourceDir = new Rah_Eien_Temporary_Directory();
         $source = $sourceDir->getFilename();
@@ -106,6 +103,5 @@ class Rah_Eien_Test_BasicTest extends PHPUnit_Framework_TestCase
         $tmp = $file->getFilename();
 
         $this->assertTrue(file_exists($tmp . '/file1.txt') && file_exists($tmp . '/testDir/file2.txt'));
-        */
     }
 }
