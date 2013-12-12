@@ -216,16 +216,7 @@ abstract class Rah_Eien_Base implements Rah_Eien_Template
         if ($this->clean === false)
         {
             $this->clean = true;
-
-            try
-            {
-                $this->clean();
-            }
-            catch (Exception $e)
-            {
-                $this->clean = false;
-                throw new Rah_Eien_Exception($e->getMessage());
-            }
+            $this->clean();
         }
 
         return $this;
