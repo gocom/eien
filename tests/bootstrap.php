@@ -1,14 +1,11 @@
 <?php
 
-/**
- * Bootstrap file for tests.
- *
- * Initializes autoloader basically.
- * So that we can PSR-0 autoload the test
- * classes, and the library itself.
- */
-
 error_reporting(E_ALL);
+
+set_error_handler(function ($errno, $errstr, $errfile, $errline)
+{
+    throw new Exception($errstr . ' in ' . $errfile . ' on line ' . $errline);
+});
 
 include dirname(dirname(__FILE__)) . '/vendor/autoload.php';
 
